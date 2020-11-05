@@ -1,0 +1,36 @@
+{
+  "name": "@userfront/react",
+  "version": "0.1.0",
+  "description": "Userfront React binding",
+  "source": "src/index.js",
+  "main": "build/userfront-react.js",
+  "module": "build/userfromt-react.module.js",
+  "unpkg": "build/userfront-react.umd.js",
+  "scripts": {
+    "test": "jest --watch",
+    "build": "microbundle",
+    "pub": "npm version patch --force && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/userfront/userfront-react.git"
+  },
+  "keywords": [
+    "userfront"
+  ],
+  "author": "Userfront",
+  "bugs": {
+    "url": "https://github.com/userfront/userfront-react/issues"
+  },
+  "homepage": "https://github.com/userfront/userfront-react#readme",
+  "devDependencies": {
+    "@anymod/core": "^0.1.21",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.1",
+    "babel-loader": "^8.1.0",
+    "es6-promise": "^4.2.8",
+    "jest": "^26.6.1",
+    "microbundle": "^0.12.4"
+  }
+}
