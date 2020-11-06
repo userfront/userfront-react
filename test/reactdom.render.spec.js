@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { toolkit } from "../src/index.js";
+import Toolkit from "../src/index.js";
 
-// const Signup = toolkit.signupForm({
-//   tenantId: "A1B2",
-//   toolId: "abcdefg",
-// });
+const Signup = Toolkit.signupForm({
+  tenantId: "A1B2",
+  toolId: "abcdefg",
+});
+console.log({ Toolkit });
 
-function Signup() {
-  return <form>Signup form</form>;
-}
+// function Signup() {
+//   return <form>Signup form</form>;
+// }
 
 function App() {
   return (
