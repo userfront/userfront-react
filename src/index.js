@@ -1,3 +1,10 @@
-const toolkit = {}
+import React from "react";
 
-export default toolkit;
+const toolkit = {
+  foo: "bar",
+  signupForm() {
+    return () => <div>Zignup</div>;
+  },
+};
+
+export default { toolkit };
