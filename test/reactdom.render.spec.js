@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Toolkit from "../src/index.js";
 import { utils } from "@anymod/core";
+import Toolkit from "../src/index.js";
+import { Test } from "./config/test.utils.js";
 
 const scope = {};
 
 const Signup = Toolkit.signupForm({
   tenantId: "A1B2",
-  toolId: "abcdefg",
+  toolId: Test.factories.mods.basic.key,
 });
 
 function App() {
@@ -33,7 +34,7 @@ describe("Render a signup form", () => {
     // TODO update this assertion to contain the HTML associated with
     // The mod that should be rendered into this location.
     expect(document.body.innerHTML).toContain(
-      `<div id="userfront-abcdefg"></div>`
+      `<div id="userfront-${Test.factories.mods.basic.key}"></div>`
     );
   });
 });

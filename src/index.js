@@ -23,9 +23,9 @@ const Toolkit = {
       uncloakNonMods();
     }
   },
-  signupForm() {
+  signupForm({ tenantId, toolId }) {
     return function Signup() {
-      return <div id="userfront-abcdefg"></div>;
+      return <div id={`userfront-${toolId}`}></div>;
     };
   },
 };
