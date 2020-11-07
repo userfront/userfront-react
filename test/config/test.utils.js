@@ -1,5 +1,5 @@
-const Promise = require("es6-promise").Promise;
 const factories = require("../factories/index.js");
+const { Singleton, setAlias } = require("@anymod/core");
 if (jest) jest.useFakeTimers();
 
 const Test = {
@@ -7,33 +7,32 @@ const Test = {
   fns: {},
 };
 
-Test.fns.defineAnyModPage = (w) => {
-  w.AnyMod = {
-    Page: {
-      page: {},
-      mountedModObjs: {},
-      unmountedEls: [],
-      modsWithRemainingAssets: [],
-      modsWithoutRemainingAssets: [],
-      mapMmos(cb) {
-        if (!cb || typeof cb !== "function") return;
-        this.mountedIds().map((id) => cb(this.mountedModObjs[id]));
-      },
-      mountedIds() {
-        return Object.keys(this.mountedModObjs);
-      },
+setAlias("Userfront");
+
+Test.fns.defineSingleton = () => {
+  Singleton.Page = {
+    page: {},
+    mountedModObjs: {},
+    unmountedEls: [],
+    modsWithRemainingAssets: [],
+    modsWithoutRemainingAssets: [],
+    mapMmos(cb) {
+      if (!cb || typeof cb !== "function") return;
+      this.mountedIds().map((id) => cb(this.mountedModObjs[id]));
     },
-    Version: {
-      currentVersion: "default",
-    },
-    Opts: {},
-    Promise,
-    ready(cb) {
-      if (cb && typeof cb === "function") cb();
-      return Promise.resolve();
+    mountedIds() {
+      return Object.keys(this.mountedModObjs);
     },
   };
-  w.AnyModPageJs = {};
+  Singleton.Version = {
+    currentVersion: "default",
+  };
+  Singleton.Opts = {};
+  Singleton.Promise = Promise;
+  Singleton.ready = (cb) => {
+    if (cb && typeof cb === "function") cb();
+    return Promise.resolve();
+  };
 };
 
 Test.fns.fireAllScriptOnloads = (document) => {
@@ -58,6 +57,6 @@ Test.fns.fireAllOnloads = (document) => {
   if (jest) jest.runAllTimers();
 };
 
-if (window) Test.fns.defineAnyModPage(global);
+if (window) Test.fns.defineSingleton();
 
-export { Test };
+export default Test;
