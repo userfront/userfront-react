@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/userfront/userfront-react#readme",
   "devDependencies": {
-    "@anymod/core": "^0.1.31",
+    "@anymod/core": "^0.1.32",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",

@@ -1,5 +1,5 @@
 const factories = require("../factories/index.js");
-const { Singleton, setAlias } = require("@anymod/core");
+const { Singleton, alias } = require("@anymod/core");
 if (jest) jest.useFakeTimers();
 
 const Test = {
@@ -7,7 +7,7 @@ const Test = {
   fns: {},
 };
 
-setAlias("Userfront");
+alias.setAlias("Userfront");
 
 Test.fns.defineSingleton = () => {
   Singleton.Page = {
