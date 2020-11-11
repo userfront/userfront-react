@@ -29,7 +29,6 @@ describe("Render a signup form", () => {
   });
 
   it("should render a signup form and its assets if no page exists yet", async () => {
-    Singleton.Opts.debug = true;
     render(<Signup />);
     await waitFor(() => {
       expect(scope.postFn).toHaveBeenCalled();
@@ -44,7 +43,6 @@ describe("Render a signup form", () => {
       );
       expect(document.head.innerHTML).toContain(Test.factories.mods.basic.css);
     });
-    console.log(document.body.innerHTML);
     return Promise.resolve();
   });
 });

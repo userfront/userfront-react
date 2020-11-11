@@ -12,7 +12,7 @@ const {
   uncloakNonMods,
 } = core;
 
-async function pager() {
+async function mount() {
   try {
     const page = await createOrReturnPage();
     const updatedPage = await checkPageAndUpdate(page);
@@ -33,9 +33,13 @@ const Toolkit = {
     Singleton.Opts.api = true;
     return function Signup() {
       useEffect(() => {
-        pager();
+        mount();
       });
-      return <div id={`userfront-${toolId}`}></div>;
+      return (
+        <div>
+          <div id={`userfront-${toolId}`}></div>;
+        </div>
+      );
     };
   },
 };
