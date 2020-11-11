@@ -1,8 +1,9 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import Test from "./config/test.utils.js";
-import core from "../src/core.map.js";
-const { Singleton, utils, crud } = core;
+import core from "@anymod/core";
+// import core from "../src/core.map.js";
+const { utils, crud } = core;
 
 import Toolkit from "../src/index.js";
 

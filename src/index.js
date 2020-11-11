@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import core from "./core.map.js";
+// import core from "./core.map.js";
+import core from "@anymod/core";
 
 const {
   Singleton,
