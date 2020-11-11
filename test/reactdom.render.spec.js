@@ -1,7 +1,7 @@
 import React from "react";
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import Test from "./config/test.utils.js";
-import core from "@anymod/core";
+import core from "../src/core.map.js";
 const { Singleton, utils, crud } = core;
 
 import Toolkit from "../src/index.js";
@@ -15,13 +15,11 @@ const Signup = Toolkit.signupForm({
 
 describe("Render a signup form", () => {
   beforeAll(() => {
-    scope.modCb = jest.fn();
-    const tempLoadFn = utils.loadPageAssets;
+    scope.loadMock = jest.fn();
+    scope.loadFn = utils.loadPageAssets;
     utils.loadPageAssets = (a, b) => {
-      return tempLoadFn(a, {
-        modCb: scope.modCb,
-        ...b,
-      });
+      scope.loadMock(a, b);
+      return scope.loadFn(a, b);
     };
     scope.postFn = jest.fn();
     crud.post = async (a) => {
@@ -36,19 +34,17 @@ describe("Render a signup form", () => {
     await waitFor(() => {
       expect(scope.postFn).toHaveBeenCalled();
     });
-    Test.fns.fireAllOnloads();
+    Test.fns.fireAllOnloads(document);
     await waitFor(() => {
-      expect(scope.modCb).toHaveBeenCalled();
-      expect(document.body.innerHTML).toContain(Test.factories.mods.basic.html);
+      expect(scope.loadMock).toHaveBeenCalled();
     });
-    console.log("head", document.head.innerHTML);
-    console.log("body", document.body.innerHTML);
-    console.log("here");
-    expect(document.head.innerHTML).toContain(Test.factories.mods.basic.css);
-    expect(document.body.innerHTML).toContain(Test.factories.mods.basic.html);
-    expect(document.body.innerHTML).toContain(
-      `<div id="userfront-${Test.factories.mods.basic.key}"></div>`
-    );
-    expect(scope.modCb).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(document.body.innerHTML).toContain(
+        Test.factories.mods.basic.html.replace(/(<div>)|(<\/div>)/g, "")
+      );
+      expect(document.head.innerHTML).toContain(Test.factories.mods.basic.css);
+    });
+    console.log(document.body.innerHTML);
+    return Promise.resolve();
   });
 });

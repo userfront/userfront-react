@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import core from "@anymod/core";
+import core from "./core.map.js";
+
 const {
   Singleton,
   alias,
@@ -15,9 +16,7 @@ async function pager() {
   try {
     const page = await createOrReturnPage();
     const updatedPage = await checkPageAndUpdate(page);
-    console.log("Start processing");
     await processPage(updatedPage);
-    console.log("Done processing");
     executeCallbacks();
     logErrorsAndTips();
     setTimeout(uncloakNonMods, 1);
