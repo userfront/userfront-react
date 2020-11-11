@@ -4,3 +4,4 @@ const core =
     : require("@anymod/core");
 
 module.exports = core;
+export default core;
