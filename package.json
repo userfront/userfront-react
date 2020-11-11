@@ -23,12 +23,13 @@
     "url": "https://github.com/userfront/userfront-react/issues"
   },
   "homepage": "https://github.com/userfront/userfront-react#readme",
+  "dependencies": {
+    "@anymod/core": "^0.1.34"
+  },
   "peerDependencies": {
-    "@anymod/core": "^0.1.34",
     "react": "^17.0.1"
   },
   "devDependencies": {
-    "@anymod/core": "^0.1.34",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
