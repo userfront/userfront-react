@@ -38,7 +38,7 @@ const Toolkit = {
       });
       return (
         <div>
-          <div id={`userfront-${toolId}`}></div>;
+          <div id={`userfront-${toolId}`}></div>
         </div>
       );
     };
