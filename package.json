@@ -8,7 +8,7 @@
   "unpkg": "build/userfront-react.umd.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "microbundle",
+    "build": "microbundle --jsx React.createElement",
     "pub": "npm version patch --force && npm publish"
   },
   "repository": {
