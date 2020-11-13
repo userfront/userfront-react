@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo } from "react";
 // import core from "./core.map.js";
 import core from "@anymod/core";
 
@@ -10,39 +10,57 @@ const {
   checkPageAndUpdate,
   executeCallbacks,
   logErrorsAndTips,
-  uncloakNonMods,
 } = core;
 
-async function mount() {
+alias.setAlias("Userfront");
+Singleton.Opts.api = true;
+
+async function mountTools() {
   try {
     const page = await createOrReturnPage();
     const updatedPage = await checkPageAndUpdate(page);
     await processPage(updatedPage);
     executeCallbacks();
     logErrorsAndTips();
-    setTimeout(uncloakNonMods, 1);
   } catch (err) {
     let message = err && err.message ? err.message : "Problem loading page";
     console.warn(message, err);
-    uncloakNonMods();
   }
 }
 
 const Toolkit = {
-  signupForm({ tenantId, toolId }) {
-    alias.setAlias("Userfront");
-    Singleton.Opts.api = true;
-    return function Signup() {
-      useEffect(() => {
-        mount();
-      });
-      return (
-        <div>
-          <div id={`userfront-${toolId}`}></div>
-        </div>
-      );
-    };
+  build({ tenantId, toolId }) {
+    class Anon extends React.Component {
+      componentDidMount() {
+        mountTools();
+      }
+      render() {
+        return (
+          <div>
+            <div id={`userfront-${toolId}`}></div>
+          </div>
+        );
+      }
+    }
+    return memo(Anon);
   },
+  /**
+   * This is the hook way to do it, which we're not
+   * using because it's not compatible with older
+   * versions of React.
+   */
+  // hook({ tenantId, toolId }) {
+  //   return function Anon() {
+  //     useEffect(() => {
+  //       mount();
+  //     });
+  //     return (
+  //       <div>
+  //         <div id={`userfront-${toolId}`}></div>
+  //       </div>
+  //     );
+  //   };
+  // },
 };
 
 export default Toolkit;
