@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 // import core from "./core.map.js";
-import core from "@anymod/core";
+import AnyMod from "@anymod/core";
+import Core from "@userfront/core";
 
 const {
   Singleton,
@@ -10,7 +11,7 @@ const {
   checkPageAndUpdate,
   executeCallbacks,
   logErrorsAndTips,
-} = core;
+} = AnyMod;
 
 alias.setAlias("Userfront");
 Singleton.Opts.api = true;
@@ -28,7 +29,7 @@ async function mountTools() {
   }
 }
 
-const Toolkit = {
+const Userfront = {
   build({ tenantId, toolId }) {
     class Anon extends React.Component {
       componentDidMount() {
@@ -63,4 +64,8 @@ const Toolkit = {
   // },
 };
 
-export default Toolkit;
+for (const attr in Core) {
+  if (!Userfront[attr]) Userfront[attr] = Core[attr];
+}
+
+export default Userfront;

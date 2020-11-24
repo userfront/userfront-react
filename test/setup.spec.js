@@ -16,7 +16,7 @@ describe("Assert that page was properly setup for mods", () => {
       tenantId: "a1b2c3d4",
     });
     expect(document.head.innerHTML).toContain(
-      `src="https://cdn.anymod.com/v2/"`
+      `src="https://cdn.anymod.com/v2/`
     );
   });
 });
