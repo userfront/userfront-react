@@ -6,7 +6,7 @@ import Core from "@userfront/core";
 const {
   Singleton,
   alias,
-  // render,
+  render,
   processPage,
   createOrReturnPage,
   checkPageAndUpdate,
@@ -18,10 +18,7 @@ alias.setAlias("Userfront");
 Singleton.Opts.api = true;
 
 Core.registerUrlChangedEventListener();
-window.addEventListener("urlchanged", () => {
-  console.log("urlchanged");
-  // render();
-});
+window.addEventListener("urlchanged", render);
 
 async function mountTools() {
   try {
