@@ -1,6 +1,6 @@
 {
   "name": "@userfront/react",
-  "version": "0.1.18",
+  "version": "0.1.20",
   "description": "Userfront React binding",
   "source": "src/index.js",
   "main": "build/userfront-react.js",
