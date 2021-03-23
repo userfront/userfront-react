@@ -10,29 +10,11 @@ const Test = {
 alias.setAlias("Userfront");
 
 Test.fns.defineSingleton = () => {
-  Singleton.Page = {
-    page: {},
-    mountedModObjs: {},
-    unmountedEls: [],
-    modsWithRemainingAssets: [],
-    modsWithoutRemainingAssets: [],
-    mapMmos(cb) {
-      if (!cb || typeof cb !== "function") return;
-      this.mountedIds().map((id) => cb(this.mountedModObjs[id]));
-    },
-    mountedIds() {
-      return Object.keys(this.mountedModObjs);
-    },
-  };
-  Singleton.Version = {
-    currentVersion: "default",
-  };
-  Singleton.Opts = {};
-  Singleton.Promise = Promise;
-  Singleton.ready = (cb) => {
-    if (cb && typeof cb === "function") cb();
-    return Promise.resolve();
-  };
+  Singleton.init();
+  // Singleton.ready = (cb) => {
+  //   if (cb && typeof cb === "function") cb();
+  //   return Promise.resolve();
+  // };
 };
 
 Test.fns.fireAllScriptOnloads = (document) => {

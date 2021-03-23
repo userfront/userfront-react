@@ -11,7 +11,6 @@ const scope = {};
 
 const Signup = Toolkit.build({
   toolId: Test.factories.mods.basic.key,
-  tenantId: "a1b2c3d4",
 });
 
 describe("Render a signup form", () => {
@@ -31,13 +30,12 @@ describe("Render a signup form", () => {
     };
   });
 
-  it("should make a request to the proper endpoint", async () => {
+  it("should make a proper request to the endpoint", async () => {
     render(<Signup />);
     await waitFor(() => {
       expect(scope.postFn).toHaveBeenCalled();
     });
-    console.log(Singleton.ApiUrl);
-    console.log(scope.postFn.mock.calls[0]);
+    expect(scope.postFn).toHaveBeenCalledWith([Test.factories.mods.basic.eid]);
   });
 
   it("should render a signup form and its assets if no page exists yet", async () => {
@@ -52,6 +50,5 @@ describe("Render a signup form", () => {
       );
       expect(document.head.innerHTML).toContain(Test.factories.mods.basic.css);
     });
-    return Promise.resolve();
   });
 });
