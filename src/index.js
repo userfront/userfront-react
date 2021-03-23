@@ -8,16 +8,25 @@ const {
   alias,
   render,
   processPage,
+  addScript1ToDocument,
   createOrReturnPage,
   checkPageAndUpdate,
   executeCallbacks,
   logErrorsAndTips,
 } = AnyMod;
 
+const { store, registerUrlChangedEventListener, addInitCallback } = Core;
+
 alias.setAlias("Userfront");
 Singleton.Opts.api = true;
 
-Core.registerUrlChangedEventListener();
+addInitCallback(({ tenantId }) => {
+  Singleton.External.project = tenantId;
+  addScript1ToDocument("https://mod.userfront.com/v3/page/", tenantId);
+});
+
+registerUrlChangedEventListener();
+
 window.addEventListener("urlchanged", render);
 
 async function mountTools() {
@@ -34,7 +43,7 @@ async function mountTools() {
 }
 
 const Userfront = {
-  build({ tenantId, toolId }) {
+  build({ toolId }) {
     class Anon extends React.Component {
       componentDidMount() {
         mountTools();
