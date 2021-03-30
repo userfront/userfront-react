@@ -16,15 +16,16 @@ describe("Assert that page was properly setup for mods", () => {
     Singleton.init();
   });
 
-  it("Should add AnyMod Script 1 for loading cached tools", async () => {
+  it("Should add AnyMod Script 1 and should not make a POST request if a page is found", async () => {
+    const mod = Test.factories.mods.basic;
     const tenantId = "a1b2c3d4";
     const page = {
       id: 101,
       host: "example.com",
       pathname: "/page.html",
-      mods: { basic: Test.factories.mods.basic },
+      mods: { basic: mod },
     };
-    crud.post = jest.fn(() => Promise.resolve(page));
+    crud.post = jest.fn(() => Promise.resolve({}));
 
     // Navigate to next page
     window.history.pushState({}, "Page title", page.pathname);
@@ -32,7 +33,56 @@ describe("Assert that page was properly setup for mods", () => {
     // Initialize the form
     Userfront.init(tenantId);
     const Signup = Userfront.build({
-      toolId: Test.factories.mods.basic.eid,
+      toolId: mod.eid,
+    });
+    render(<Signup />);
+
+    // Assert correct setup
+    expect(Singleton.External.name).toEqual("Userfront");
+    expect(Singleton.External.project).toEqual(tenantId);
+
+    // Assert Script 1 in head
+    expect(document.head.innerHTML).toContain(
+      `src="https://mod.userfront.com/v3/page/${tenantId}/`
+    );
+
+    // Mock the page being found
+    window.AnyModPageJs = {
+      page: {
+        id: page.id,
+        host: page.host,
+        pathname: page.pathname,
+        cssAssets: [],
+        jsAssets: [],
+        mods: page.mods,
+      },
+    };
+    const el = document.querySelector(
+      `script[src^="https://mod.userfront.com/v3/page/${tenantId}/"]`
+    );
+    el.onload();
+
+    expect(crud.post).not.toHaveBeenCalled();
+  });
+
+  it("Should add AnyMod Script 1 and should make a POST request if a page is not found", async () => {
+    const mod = Test.factories.mods.plainjs;
+    const tenantId = "b2c3d4e5";
+    const page = {
+      id: 101,
+      host: "example.com",
+      pathname: "/page.html",
+      mods: { plainjs: mod },
+    };
+    crud.post = jest.fn(() => Promise.resolve({}));
+
+    // Navigate to next page
+    window.history.pushState({}, "Page title", page.pathname);
+
+    // Initialize the form
+    Userfront.init(tenantId);
+    const Signup = Userfront.build({
+      toolId: mod.eid,
     });
     render(<Signup />);
 
@@ -42,49 +92,21 @@ describe("Assert that page was properly setup for mods", () => {
     expect(document.head.innerHTML).toContain(
       `src="https://mod.userfront.com/v3/page/${tenantId}/`
     );
-    expect(crud.post).toHaveBeenCalledWith(["basic"]);
-  });
 
-  it("Should not make a POST request if window.AnyModPageJs matches the page", async () => {
-    const tenantId = "b9c8d7c6";
-    const page = {
-      id: 103,
-      host: "example.com",
-      pathname: "/nopost.html",
-      mods: { plainjs: Test.factories.mods.plainjs },
-    };
-    crud.post = jest.fn(() => Promise.resolve(page));
-
-    // Navigate to next page
-    window.history.pushState({}, "Page title", page.pathname);
-
-    // Initialize the form
-    Userfront.init(tenantId);
-
-    // Spoof that window.AnyModPageJs is defined
+    // Mock the page not being found
     window.AnyModPageJs = {
       page: {
-        id: page.id,
-        host: page.host,
-        pathname: page.pathname,
-        cssAssets: Test.factories.mods.plainjs.cssAssets,
-        jsAssets: Test.factories.mods.plainjs.jsAssets,
-        mods: page.mods,
+        error: "Not Found",
+        message: "Not Found",
+        statusCode: 404,
       },
     };
-
-    // Render the form
-    const Login = Userfront.build({
-      toolId: Test.factories.mods.plainjs.eid,
-    });
-    render(<Login />);
-
-    // Assert correct setup
-    expect(Singleton.External.name).toEqual("Userfront");
-    expect(Singleton.External.project).toEqual(tenantId);
-    expect(document.head.innerHTML).toContain(
-      `src="https://mod.userfront.com/v3/page/${tenantId}/`
+    const el = document.querySelector(
+      `script[src^="https://mod.userfront.com/v3/page/${tenantId}/"]`
     );
-    expect(crud.post).not.toHaveBeenCalled();
+    el.onload();
+
+    // Mock the page being found
+    expect(crud.post).toHaveBeenCalledWith([mod.eid]);
   });
 });
