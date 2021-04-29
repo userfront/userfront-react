@@ -13,7 +13,7 @@ describe("Assert that page was properly setup for mods", () => {
   beforeEach(async () => {
     document.head.innerHTML = Test.factories.document.headInnerHtml;
     Singleton.Page = {};
-    Singleton.init();
+    Singleton.initialize();
   });
 
   it("Should add AnyMod Script 1 and should not make a POST request if a page is found", async () => {

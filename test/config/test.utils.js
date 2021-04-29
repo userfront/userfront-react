@@ -10,11 +10,11 @@ const Test = {
 alias.setAlias("Userfront");
 
 Test.fns.defineSingleton = () => {
-  Singleton.init();
-  // Singleton.ready = (cb) => {
-  //   if (cb && typeof cb === "function") cb();
-  //   return Promise.resolve();
-  // };
+  Singleton.initialize();
+  Singleton.ready = (cb) => {
+    if (cb && typeof cb === "function") cb();
+    return Promise.resolve();
+  };
 };
 
 Test.fns.fireAllScriptOnloads = (document) => {
