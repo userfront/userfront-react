@@ -15,8 +15,9 @@ const {
   logErrorsAndTips,
 } = AnyMod;
 
-const { store, registerUrlChangedEventListener, addInitCallback } = Core;
+const { registerUrlChangedEventListener, addInitCallback } = Core;
 alias.setAlias("Userfront");
+
 Singleton.Opts.api = true;
 
 /**
