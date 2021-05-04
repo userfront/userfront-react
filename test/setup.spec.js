@@ -1,19 +1,21 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Test from "./config/test.utils.js";
 import AnyMod, { Singleton } from "@anymod/core";
 // import core from "../src/core.map.js";
-const { utils, crud } = AnyMod;
+const { crud } = AnyMod;
 
-import Userfront from "../src/index.js";
-
-const scope = {};
+let Userfront;
 
 describe("Assert that page was properly setup for mods", () => {
   beforeEach(async () => {
-    document.head.innerHTML = Test.factories.document.headInnerHtml;
     Singleton.Page = {};
+    Singleton.External = { name: "Userfront", project: "59M89E" };
+    document.head.innerHTML = Test.factories.document.headInnerHtml;
+    Userfront = undefined;
+    Userfront = require("../src/index.js").default;
     Singleton.initialize();
+    console.log(Singleton);
   });
 
   it("Should add AnyMod Script 1 and should not make a POST request if a page is found", async () => {

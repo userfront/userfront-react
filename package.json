@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/userfront/userfront-react#readme",
   "dependencies": {
-    "@anymod/core": "^0.1.44",
-    "@userfront/core": "^0.1.19"
+    "@anymod/core": "^0.1.45",
+    "@userfront/core": "^0.1.20"
   },
   "peerDependencies": {
     "react": "^17.0.1",
