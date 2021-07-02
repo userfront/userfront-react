@@ -36,7 +36,7 @@ Singleton.Opts.api = true;
 addInitCallback(({ tenantId }) => {
   Singleton.External.project = tenantId;
   addScript1ToDocument(
-    "https://mod.userfront.com/v3/page/",
+    "https://cdn.userfront.com/toolkit/page/",
     tenantId,
     runAnyModSetup
   );

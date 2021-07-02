@@ -39,7 +39,7 @@ describe("Assert that page was properly set up", () => {
 
     // Assert Script 1 in head
     expect(document.head.innerHTML).toContain(
-      `src="https://mod.userfront.com/v3/page/${tenantId}/`
+      `src="https://cdn.userfront.com/toolkit/page/${tenantId}/`
     );
 
     // Mock the page not being found
@@ -51,7 +51,7 @@ describe("Assert that page was properly set up", () => {
       },
     };
     const el = document.querySelector(
-      `script[src^="https://mod.userfront.com/v3/page/${tenantId}/"]`
+      `script[src^="https://cdn.userfront.com/toolkit/page/${tenantId}/"]`
     );
     el.onload();
 
