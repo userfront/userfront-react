@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-// import core from "./core.map.js";
 import AnyMod from "@anymod/core";
 import Core from "@userfront/core";
 
