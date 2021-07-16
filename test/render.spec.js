@@ -33,11 +33,7 @@ describe("Render a signup form", () => {
     };
   });
 
-  afterEach(() => {
-    document.body.innerHTML = "";
-  });
-
-  const toRun = [
+  const components = [
     <SignupCustom />,
     <SignupForm toolId={Test.factories.mods.basic.key} />,
     <LoginForm toolId={Test.factories.mods.basic.key} />,
@@ -45,40 +41,20 @@ describe("Render a signup form", () => {
     <LogoutButton toolId={Test.factories.mods.basic.key} />,
   ];
 
-  // toRun.map((component) => {
-  it(`should make a proper request to the endpoint`, async () => {
-    render(toRun[0]);
-    await waitFor(() => {
-      expect(scope.postFn).toHaveBeenCalled();
+  components.map((component) => {
+    it(`should make a proper request to the endpoint`, async () => {
+      render(component);
+      await waitFor(() => {
+        expect(scope.postFn).toHaveBeenCalled();
+      });
+      expect(scope.postFn).toHaveBeenCalledWith([
+        Test.factories.mods.basic.eid,
+      ]);
     });
-    expect(scope.postFn).toHaveBeenCalledWith([Test.factories.mods.basic.eid]);
   });
-  // });
 
   it("should render a component and its assets if no page exists yet", async () => {
-    render(toRun[0]);
-    Test.fns.fireAllOnloads(document);
-    await waitFor(() => {
-      expect(scope.loadMock).toHaveBeenCalled();
-    });
-    await waitFor(() => {
-      expect(document.body.innerHTML).toContain(
-        Test.factories.mods.basic.html.replace(/(<div>)|(<\/div>)/g, "")
-      );
-      expect(document.head.innerHTML).toContain(Test.factories.mods.basic.css);
-    });
-  });
-
-  xit("Should render with build option", async () => {
-    render(<SignupCustom />);
-    await waitFor(() => {
-      expect(scope.postFn).toHaveBeenCalled();
-    });
-    expect(scope.postFn).toHaveBeenCalledWith([Test.factories.mods.basic.eid]);
-  });
-
-  xit("Should render with build option if no page exists yet", async () => {
-    render(<SignupCustom />);
+    render(components[0]);
     Test.fns.fireAllOnloads(document);
     await waitFor(() => {
       expect(scope.loadMock).toHaveBeenCalled();

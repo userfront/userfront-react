@@ -83,7 +83,7 @@ async function mountTools() {
 //   };
 // },
 
-class Form extends React.Component {
+class Form extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -99,8 +99,8 @@ class Form extends React.Component {
   }
 }
 
-function build({ toolId }) {
-  class Anon extends React.Component {
+export function build({ toolId }) {
+  class Anon extends React.PureComponent {
     componentDidMount() {
       mountTools();
     }
@@ -112,7 +112,7 @@ function build({ toolId }) {
       );
     }
   }
-  return memo(Anon);
+  return Anon;
 }
 
 export function SignupForm({ toolId }) {
@@ -130,10 +130,10 @@ export function LogoutButton({ toolId }) {
 
 export const Userfront = {
   build,
-  // SignupForm,
-  // LoginForm,
-  // PasswordResetForm,
-  // LogoutButton,
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
 };
 
 for (const attr in Core) {
