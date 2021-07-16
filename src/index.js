@@ -128,7 +128,7 @@ export function LogoutButton({ toolId }) {
   return <Form toolId={toolId} />;
 }
 
-export const Userfront = {
+const Userfront = {
   build,
   SignupForm,
   LoginForm,
