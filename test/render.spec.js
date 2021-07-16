@@ -38,6 +38,7 @@ describe("Render a signup form", () => {
   });
 
   const toRun = [
+    <SignupCustom />,
     <SignupForm toolId={Test.factories.mods.basic.key} />,
     <LoginForm toolId={Test.factories.mods.basic.key} />,
     <PasswordResetForm toolId={Test.factories.mods.basic.key} />,
@@ -55,7 +56,7 @@ describe("Render a signup form", () => {
   // });
 
   it("should render a component and its assets if no page exists yet", async () => {
-    render(<SignupForm toolId={Test.factories.mods.basic.key} />);
+    render(toRun[0]);
     Test.fns.fireAllOnloads(document);
     await waitFor(() => {
       expect(scope.loadMock).toHaveBeenCalled();
