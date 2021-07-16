@@ -99,7 +99,7 @@ class Form extends React.Component {
   }
 }
 
-export function build({ toolId }) {
+function build({ toolId }) {
   class Anon extends React.Component {
     componentDidMount() {
       mountTools();
