@@ -3,9 +3,9 @@
   "version": "0.2.13",
   "description": "Userfront React binding",
   "source": "src/index.js",
-  "main": "build/userfront-react.js",
-  "module": "build/userfront-react.module.js",
-  "unpkg": "build/userfront-react.umd.js",
+  "main": "./build/userfront-react.js",
+  "module": "./build/userfront-react.module.js",
+  "unpkg": "./build/userfront-react.umd.js",
   "scripts": {
     "test": "jest --watch",
     "build": "microbundle --jsx React.createElement",

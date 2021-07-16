@@ -130,10 +130,10 @@ export function LogoutButton({ toolId }) {
 
 const Userfront = {
   build,
-  // SignupForm,
-  // LoginForm,
-  // PasswordResetForm,
-  // LogoutButton,
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
 };
 
 for (const attr in Core) {
@@ -143,3 +143,5 @@ for (const attr in Core) {
 }
 
 export default Userfront;
+
+module.exports = Userfront;
