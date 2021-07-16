@@ -43,7 +43,9 @@ addInitCallback(({ tenantId }) => {
 
 registerUrlChangedEventListener();
 
-window.addEventListener("urlchanged", render);
+if (typeof window === "object") {
+  window.addEventListener("urlchanged", render);
+}
 
 async function runAnyModSetup() {
   if (Singleton.isScript1Loading) return;
