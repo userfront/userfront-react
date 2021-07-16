@@ -1,15 +1,18 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import Test from "./config/test.utils.js";
-import core, { Singleton } from "@anymod/core";
-// import core from "../src/core.map.js";
-const { utils, crud } = core;
+import { utils, crud } from "@anymod/core";
 
-import Toolkit from "../src/index.js";
+import Toolkit, {
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
+} from "../src/index.js";
 
 const scope = {};
 
-const Signup = Toolkit.build({
+const SignupCustom = Toolkit.build({
   toolId: Test.factories.mods.basic.key,
 });
 
@@ -30,16 +33,28 @@ describe("Render a signup form", () => {
     };
   });
 
-  it("should make a proper request to the endpoint", async () => {
-    render(<Signup />);
-    await waitFor(() => {
-      expect(scope.postFn).toHaveBeenCalled();
+  const components = [
+    <SignupCustom />,
+    <SignupForm toolId={Test.factories.mods.basic.key} />,
+    <LoginForm toolId={Test.factories.mods.basic.key} />,
+    <PasswordResetForm toolId={Test.factories.mods.basic.key} />,
+    <LogoutButton toolId={Test.factories.mods.basic.key} />,
+  ];
+
+  components.map((component) => {
+    it(`should make a proper request to the endpoint`, async () => {
+      render(component);
+      await waitFor(() => {
+        expect(scope.postFn).toHaveBeenCalled();
+      });
+      expect(scope.postFn).toHaveBeenCalledWith([
+        Test.factories.mods.basic.eid,
+      ]);
     });
-    expect(scope.postFn).toHaveBeenCalledWith([Test.factories.mods.basic.eid]);
   });
 
-  it("should render a signup form and its assets if no page exists yet", async () => {
-    render(<Signup />);
+  it("should render a component and its assets if no page exists yet", async () => {
+    render(components[0]);
     Test.fns.fireAllOnloads(document);
     await waitFor(() => {
       expect(scope.loadMock).toHaveBeenCalled();
