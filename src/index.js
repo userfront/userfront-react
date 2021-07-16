@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import AnyMod from "@anymod/core";
 import Core from "@userfront/core";
 
