@@ -2,6 +2,7 @@ import Cookie from "js-cookie";
 import Userfront from "../src/index.js";
 
 const tenantId = "test1234";
+Userfront.init(tenantId);
 
 describe("Userfront Core JS", () => {
   it("methods should be present", () => {
