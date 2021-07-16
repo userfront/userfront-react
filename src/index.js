@@ -115,16 +115,16 @@ function build({ toolId }) {
   return Anon;
 }
 
-function SignupForm({ toolId }) {
+export function SignupForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-function LoginForm({ toolId }) {
+export function LoginForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-function PasswordResetForm({ toolId }) {
+export function PasswordResetForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-function LogoutButton({ toolId }) {
+export function LogoutButton({ toolId }) {
   return <Form toolId={toolId} />;
 }
 

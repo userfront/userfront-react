@@ -12,7 +12,7 @@ import Userfront, {
   LoginForm,
   PasswordResetForm,
   LogoutButton,
-} from "../build/userfront-react.modern.js";
+} from "../src/index.js";
 
 const scope = {};
 
