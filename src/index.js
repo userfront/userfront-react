@@ -65,39 +65,68 @@ async function mountTools() {
   }
 }
 
-const Userfront = {
-  build({ toolId }) {
-    class Anon extends React.Component {
-      componentDidMount() {
-        mountTools();
-      }
-      render() {
-        return (
-          <div>
-            <div id={`userfront-${toolId}`}></div>
-          </div>
-        );
-      }
-    }
-    return memo(Anon);
-  },
-  /**
-   * This is the hook way to do it, which we're not
-   * using because it's not compatible with older
-   * versions of React.
-   */
-  // hook({ tenantId, toolId }) {
-  //   return function Anon() {
-  //     useEffect(() => {
-  //       mount();
-  //     });
-  //     return (
-  //       <div>
-  //         <div id={`userfront-${toolId}`}></div>
-  //       </div>
-  //     );
-  //   };
-  // },
+/**
+ * This is the hook way to do it, which we're not
+ * using because it's not compatible with older
+ * versions of React.
+ */
+// hook({ tenantId, toolId }) {
+//   return function Anon() {
+//     useEffect(() => {
+//       mount();
+//     });
+//     return (
+//       <div>
+//         <div id={`userfront-${toolId}`}></div>
+//       </div>
+//     );
+//   };
+// },
+
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    mountTools();
+  }
+  render() {
+    return (
+      <div>
+        <div id={`userfront-${this.props.toolId}`}></div>
+      </div>
+    );
+  }
+}
+
+export function build(props) {
+  return new Form();
+}
+
+export function SignupForm({ toolId }) {
+  return <Form toolId={toolId} />;
+}
+export function LoginForm({ toolId }) {
+  return <Form toolId={toolId} />;
+}
+export function PasswordResetForm({ toolId }) {
+  return <Form toolId={toolId} />;
+}
+export function LogoutButton({ toolId }) {
+  return <Form toolId={toolId} />;
+}
+
+// export const SignupForm = build("signup-form");
+// export const LoginForm = build("login-form");
+// export const PasswordResetForm = build("password-reset-form");
+// export const LogoutButton = build("logout-button");
+
+export const Userfront = {
+  build,
+  SignupForm,
+  LoginForm,
+  PasswordResetForm,
+  LogoutButton,
 };
 
 for (const attr in Core) {
