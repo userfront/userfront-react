@@ -3,16 +3,20 @@ import { render, waitFor } from "@testing-library/react";
 import Test from "./config/test.utils.js";
 import { utils, crud } from "@anymod/core";
 
-import Toolkit, {
+/**
+ * Have to use /build file here, because using /src/index.js with both
+ * named exports and default export causes a problem in bundles.
+ */
+import Userfront, {
   SignupForm,
   LoginForm,
   PasswordResetForm,
   LogoutButton,
-} from "../src/index.js";
+} from "../build/userfront-react.modern.js";
 
 const scope = {};
 
-const SignupCustom = Toolkit.build({
+const SignupCustom = Userfront.build({
   toolId: Test.factories.mods.basic.key,
 });
 

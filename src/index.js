@@ -99,7 +99,7 @@ class Form extends React.PureComponent {
   }
 }
 
-export function build({ toolId }) {
+function build({ toolId }) {
   class Anon extends React.PureComponent {
     componentDidMount() {
       mountTools();
@@ -115,16 +115,16 @@ export function build({ toolId }) {
   return Anon;
 }
 
-export function SignupForm({ toolId }) {
+function SignupForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-export function LoginForm({ toolId }) {
+function LoginForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-export function PasswordResetForm({ toolId }) {
+function PasswordResetForm({ toolId }) {
   return <Form toolId={toolId} />;
 }
-export function LogoutButton({ toolId }) {
+function LogoutButton({ toolId }) {
   return <Form toolId={toolId} />;
 }
 
@@ -143,5 +143,3 @@ for (const attr in Core) {
 }
 
 export default Userfront;
-
-module.exports = Userfront;

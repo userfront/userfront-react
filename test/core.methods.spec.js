@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
 import Userfront from "../src/index.js";
-const UserfrontRequire = require("../src/index.js");
+const UserfrontRequire = require("../src/index.js").default;
 
 const tenantId = "test1234";
 Userfront.init(tenantId);

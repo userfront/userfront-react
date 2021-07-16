@@ -6,6 +6,10 @@
   "main": "./build/userfront-react.js",
   "module": "./build/userfront-react.module.js",
   "unpkg": "./build/userfront-react.umd.js",
+  "exports": {
+    "import": "./build/userfront-react.modern.js",
+    "require": "./build/userfront-react.module.js"
+  },
   "scripts": {
     "test": "jest --watch",
     "build": "microbundle --jsx React.createElement",
