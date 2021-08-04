@@ -45,7 +45,7 @@ This will add a working signup form to your page:
 
 ## Core JS methods
 
-When you add the script to your page, you can use any of the methods from the Userfront core JS library by referencing `window.Userfront` (or simply `Userfront`).
+When you add the Userfront React binding to your application, you can use any of the methods from the Userfront core JS library too.
 
 Docs for the core JS methods are here: https://userfront.com/docs/js.html
 
