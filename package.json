@@ -1,6 +1,6 @@
 {
   "name": "@userfront/react",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "description": "Userfront React binding",
   "source": "src/index.js",
   "main": "build/userfront-react.js",
@@ -9,7 +9,9 @@
   "scripts": {
     "test": "jest --watch",
     "build": "microbundle --jsx React.createElement",
-    "pub": "npm version patch --force && npm publish"
+    "pub": "npm version patch --force && npm publish",
+    "build:beta": "npm version prerelease --preid=beta && microbundle --jsx React.createElement",
+    "pub:beta": "npm publish --tag beta"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,7 @@
   "homepage": "https://github.com/userfront/userfront-react#readme",
   "dependencies": {
     "@anymod/core": "^0.1.51",
-    "@userfront/core": "^0.2.23"
+    "@userfront/core": "^0.2.26"
   },
   "peerDependencies": {
     "react": "^17.0.1",
