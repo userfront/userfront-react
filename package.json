@@ -9,7 +9,9 @@
   "scripts": {
     "test": "jest --watch",
     "build": "microbundle --jsx React.createElement",
-    "pub": "npm version patch --force && npm publish"
+    "pub": "npm version patch --force && npm publish",
+    "build:beta": "npm version prerelease --preid=beta && microbundle",
+    "pub:beta": "npm publish --tag beta"
   },
   "repository": {
     "type": "git",
