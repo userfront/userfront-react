@@ -1,6 +1,40 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
+// For react and react-dom, substitute v16 or v17 as appropriate.
+const getReactVersionPostfix = () => {
+  const envVersion = process.env.REACT_VERSION;
+  switch (envVersion) {
+    case "16":
+      return "-16";
+    case "17":
+      return "-17";
+    case "18":
+    default:
+      return "";
+  }
+}
+
+// In React 18, using the legacy ReactDOM.render triggers React to use legacy behavior.
+// @testing-library/react ^13.3.0 is updated to use the modern ReactDOMClient.createRoot.
+// It is possible to override it to use the legacy behavior, however, it depends on react-dom^18.0.0
+// in other ways, and won't run in the React 16 and 17 test environments.
+// So we go back to @testing-library/react ^12 for these tests.
+// The React 18 tests can be run with @testing-library/react 12, however, it triggers
+// the legacy React behavior as noted above, so the test environment would not match the assumed
+// production environment.
+const getRtlVersionPostfix = () => {
+  const envVersion = process.env.REACT_VERSION;
+  switch (envVersion) {
+    case "16":
+    case "17":
+      return "-legacy";
+    case "18":
+    default:
+      return "";
+  }
+}
+
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -12,7 +46,8 @@ module.exports = {
   // browser: false,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/var/folders/p_/78j34v8d52b0t1sdr7cjv_l00000gn/T/jest_dx",
+  // Use a different cache for each react-versioned test suite.
+  cacheDirectory: `.cache/jest-cache-react${getReactVersionPostfix()}`,
 
   // Automatically clear mock calls and instances between every test
   // clearMocks: false,
@@ -71,7 +106,12 @@ module.exports = {
   ],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  // Use the correct versions of react, react-dom and @testing-library/react per the test's target React version.
+  moduleNameMapper: {
+    "^@testing-library\/react((\\/.*)?)$": `@testing-library/react${getRtlVersionPostfix()}$1`,
+    "^react((\\/.*)?)$": `react${getReactVersionPostfix()}$1`,
+    "^react-dom((\\/.*)?)$": `react-dom${getReactVersionPostfix()}$1`
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -114,6 +154,8 @@ module.exports = {
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
   // setupFiles: [],
+
+  setupFilesAfterEnv: ['<rootDir>/jestSetup.js'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,
