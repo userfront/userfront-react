@@ -1,6 +1,6 @@
 {
   "name": "@userfront/react",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Userfront React binding",
   "source": "src/index.js",
   "main": "build/userfront-react.js",
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/userfront/userfront-react#readme",
   "dependencies": {
     "@anymod/core": "^0.1.51",
-    "@userfront/core": "^0.4.4"
+    "@userfront/core": "^0.5.0"
   },
   "peerDependencies": {
     "react": "^16 || ^17 || ^18"
