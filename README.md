@@ -1,4 +1,8 @@
-# Userfront React
+# ⚠️ Deprecated: new projects should use the [Userfront Toolkit](https://github.com/userfront/toolkit) ([npm: @userfront/toolkit](https://www.npmjs.com/package/@userfront/toolkit))
+
+This library is no longer receiving updates. Please use `@userfront/toolkit` instead.
+
+## Userfront React
 
 The Userfront React binding allows you to quickly add pre-built signup, login, and password reset forms to your React application.
 
